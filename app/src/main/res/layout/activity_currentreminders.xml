@@ -17,36 +17,6 @@
         android:onClick="goBack"
         android:background="@color/umber"/>
 
-    <EditText
-        android:id="@+id/titleEditText"
-        android:layout_width="match_parent"
-        android:layout_height="62dp"
-        android:hint="Reminder Title" />
-
-    <EditText
-        android:id="@+id/contentEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Content"
-        android:inputType="textMultiLine"
-        android:minLines="5" />
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Save Reminder"
-        android:background="@color/umber"/>
-
-    <TextView
-        android:id="@+id/notesText"
-        android:layout_width="match_parent"
-        android:layout_height="33dp"
-        android:layout_marginTop="16dp"
-        android:text="Reminders:"
-        android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -57,7 +27,16 @@
             android:id="@+id/notesContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Current Reminders:"
+                android:layout_centerInParent="true"
+                android:textSize="40sp"/>
+        </LinearLayout>
 
     </ScrollView>
 

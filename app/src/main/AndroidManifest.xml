@@ -18,6 +18,11 @@
             android:label="@string/title_activity_notes2"
             android:theme="@style/Theme.Calendar" />
         <activity
+            android:name=".CurrentReminders"
+            android:exported="false"
+            android:label="@string/title_activity_notes2"
+            android:theme="@style/Theme.Calendar" />
+        <activity
             android:name=".notesactivity"
             android:exported="false" />
         <activity

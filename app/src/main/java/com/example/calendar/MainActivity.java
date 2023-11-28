@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -98,5 +97,10 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             Intent i = new Intent(this, SecondActivity.class );
             startActivity(i);
 
+    }
+
+    public void goCurrentNotes (View view){
+        Intent intent = new Intent (this, CurrentReminders.class);
+        startActivity(intent);
     }
 }
