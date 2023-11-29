@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -94,8 +95,15 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     public void onItemClick(int position, String dayText)
     {
 
-            Intent i = new Intent(this, SecondActivity.class );
+        if(!dayText.equals(""))
+        {
+            String date = dayText + " " + monthYearFromDate(selectedDate);
+            Toast.makeText(this, date, Toast.LENGTH_LONG).show();
+
+            Intent i = new Intent(this, SecondActivity.class);
+            i.putExtra("date", date);
             startActivity(i);
+        }
 
     }
 

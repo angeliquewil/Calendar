@@ -7,4 +7,10 @@
     <color name="umber">#993e14</color>
     <color name="lightUmber">#f5d8cb</color>
     <color name="desatumber">#b5592f</color>
+    <color name="darkumber">#632406</color>
+
+    <style name="MyDatePicker" >
+        <item name="android:textColorPrimary">@color/darkumber</item>
+        <item name="colorControlNormal">@color/darkumber</item>
+    </style>
 </resources>
