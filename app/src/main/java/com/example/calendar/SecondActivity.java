@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -51,19 +53,14 @@ public class SecondActivity extends AppCompatActivity {
         TextView DateEditText = findViewById(R.id.displayDate);
 
         DateEditText.setText(day);
-
+        Button pickTimeBtn = findViewById(R.id.idBtnPickTime);
+        TextView selectedTimeTV = findViewById(R.id.idTVSelectedTime);
         saveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 saveNote();
             }
         });
-
-        loadNotesFromPreferences();
-        displayNotes();
-
-        pickTimeBtn = findViewById(R.id.idBtnPickTime);
-        selectedTimeTV = findViewById(R.id.idTVSelectedTime);
 
         pickTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,22 +72,41 @@ public class SecondActivity extends AppCompatActivity {
 
                 TimePickerDialog timePickerDialog = new TimePickerDialog(SecondActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
+
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-                                selectedTimeTV.setText(hourOfDay + ":" + minute);
+                                if(hourOfDay< 12){
+                                    String pmAm = "AM";
+                                    selectedTimeTV.setText(hourOfDay + ":" + minute + " " + pmAm);
+                                }
+                                else {
+                                    String pmAm = "PM";
+                                    selectedTimeTV.setText(hourOfDay + ":" + minute + " " + pmAm);
+                                }
                             }
                         }, hour, minute, false);
                 timePickerDialog.show();
             }
         });
+
+        loadNotesFromPreferences();
+        displayNotes();
+
+
     }
 
     private void displayNotes() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String day = extras.getString("date");
+            for (Note note : noteList) {
 
-        for (Note note : noteList) {
+                if(note.getDate().equals(day)){
+                    createNoteView(note);
 
-            createNoteView(note);
+                }
+            }
         }
     }
 
@@ -115,7 +131,7 @@ public class SecondActivity extends AppCompatActivity {
                 note.setTitle(title);
                 note.setContent(content);
                 note.setDate(Date);
-                note.setTime(String.valueOf(selectedTimeTV));
+                note.setTime(Time);
 
                 noteList.add(note);
 
@@ -128,13 +144,14 @@ public class SecondActivity extends AppCompatActivity {
         if (extras != null) {
             String day = extras.getString("date");
             //The key argument here must match that used in the other activity
-//!!!!!!!!
+
             EditText titleEditText = findViewById(R.id.titleEditText);
             EditText contentEditText = findViewById(R.id.contentEditText);
+            TextView timeTextView = findViewById(R.id.idTVSelectedTime);
 
             String title = titleEditText.getText().toString();
             String content = contentEditText.getText().toString();
-            String time = String.valueOf(selectedTimeTV);
+            String time = timeTextView.getText().toString();
 
             if (!content.isEmpty() && !title.isEmpty()) {
 
@@ -179,7 +196,6 @@ public class SecondActivity extends AppCompatActivity {
         contentTextView.setText(note.getContent());
         getDate.setText(note.getDate());
         getTime.setText(note.getTime());
-        getTime.setText("7:10");
         notesContainer.addView(noteView);
         noteView.setClickable(true);
         noteView.setLongClickable(true);
@@ -192,23 +208,6 @@ public class SecondActivity extends AppCompatActivity {
 
             }
         });
-
-    }
-    private void showDeleteDialog(Note note) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete this note");
-        builder.setMessage("Are you sure you want to delete this note?");
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                deleteNoteAndRefresh(note);
-
-            }
-        });
-        builder.setNegativeButton("cancel", null);
-
 
     }
 
@@ -252,10 +251,6 @@ public class SecondActivity extends AppCompatActivity {
 
         private String Time;
 
-        public Note(){
-
-
-        }
         public String getTime(){
 
             return Time;
@@ -288,6 +283,9 @@ public class SecondActivity extends AppCompatActivity {
         public void setContent(String content){
 
             this.Content = content;
+        }
+        public Note(){
+
         }
         public Note(String title, String content, String Date, String Time){
 

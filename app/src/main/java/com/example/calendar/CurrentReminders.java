@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,10 +64,15 @@ public class CurrentReminders extends AppCompatActivity {
 
             String title = sharedPreferences.getString("note_title_" + i, "");
             String content = sharedPreferences.getString("note_content_" + i, "");
+            String date = sharedPreferences.getString("note_date_" + i, "");
+            String time = sharedPreferences.getString("note_time_" + i, "");
+
 
             Note note = new Note();
             note.setTitle(title);
             note.setContent(content);
+            note.setDate(date);
+            note.setTime(time);
 
             noteList.add(note);
 
@@ -113,8 +120,9 @@ public class CurrentReminders extends AppCompatActivity {
         TextView titleTextView = noteView.findViewById(R.id.titleTextView);
         TextView contentTextView = noteView.findViewById(R.id.contentTextView);
         TextView getDate = noteView.findViewById((R.id.displayTheDay));
+        TextView getTime = noteView.findViewById(R.id.reminderTime);
 
-
+        getTime.setText(note.getTime());
         titleTextView.setText(note.getTitle());
         contentTextView.setText(note.getContent());
         getDate.setText(note.getDate());
@@ -133,23 +141,7 @@ public class CurrentReminders extends AppCompatActivity {
 
     }
 
-    private void showDeleteDialog(Note note) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete this note");
-        builder.setMessage("Are you sure you want to delete this note?");
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                deleteNoteAndRefresh(note);
-
-            }
-        });
-        builder.setNegativeButton("cancel", null);
-
-
-    }
 
     private void deleteNoteAndRefresh(Note note) {
 
@@ -176,6 +168,8 @@ public class CurrentReminders extends AppCompatActivity {
 
             editor.putString("note_title_" + i, note.getTitle().toString());
             editor.putString("note_content_" + i, note.getContent());
+            editor.putString("note_date_" + 1, note.getDate());
+            editor.putString("note_time_" + i, note.getTime());
         }
 
         editor.apply();
