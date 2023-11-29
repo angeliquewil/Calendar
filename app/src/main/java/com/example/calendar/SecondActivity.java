@@ -131,7 +131,6 @@ public class SecondActivity extends AppCompatActivity {
 //!!!!!!!!
             EditText titleEditText = findViewById(R.id.titleEditText);
             EditText contentEditText = findViewById(R.id.contentEditText);
-            TextView getTime = selectedTimeTV;
 
             String title = titleEditText.getText().toString();
             String content = contentEditText.getText().toString();
@@ -173,11 +172,14 @@ public class SecondActivity extends AppCompatActivity {
         TextView titleTextView = noteView.findViewById(R.id.titleTextView);
         TextView contentTextView = noteView.findViewById(R.id.contentTextView);
         TextView getDate = noteView.findViewById((R.id.displayTheDay));
+        TextView getTime = noteView.findViewById((R.id.reminderTime));
 
 
         titleTextView.setText(note.getTitle());
         contentTextView.setText(note.getContent());
         getDate.setText(note.getDate());
+        getTime.setText(note.getTime());
+        getTime.setText("7:10");
         notesContainer.addView(noteView);
         noteView.setClickable(true);
         noteView.setLongClickable(true);
@@ -236,6 +238,7 @@ public class SecondActivity extends AppCompatActivity {
             editor.putString("note_title_" + i,note.getTitle());
             editor.putString("note_content_" + i, note.getContent());
             editor.putString("note_date_" + i, note.getDate());
+            editor.putString("note_time_" + i, note.getTime());
         }
 
         editor.apply();

@@ -44,7 +44,8 @@
         android:id="@+id/displayDate"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:hint="Reminder Title" />
+        android:hint="Reminder Date" />
+
 
     <TextView
         android:id="@+id/idTVSelectedTime"
@@ -70,14 +71,6 @@
         android:text="Pick Time"
         android:background="@color/umber"
         android:textAllCaps="false" />
-
-<!--    <DatePicker-->
-<!--        android:id="@+id/datePicker1"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="146dp"-->
-<!--        android:calendarViewShown="false"-->
-<!--        android:datePickerMode="spinner"-->
-<!--        android:theme="@style/MyDatePicker" />-->
 
 
     <Button
